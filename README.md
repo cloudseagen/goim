@@ -56,7 +56,8 @@ goim is an im server writen in golang.
 You can view the comments in target/comet.toml,logic.toml,job.toml to understand the meaning of the config.
 
 ### Dependencies
-[Discovery](https://github.com/bilibili/discovery)
+[Discovery](https://github.com/cloudseagen/discovery)
+主要是用来管理节点，通过节点像discovery注册消息，通过也通过做负载均衡，也就是通过访问discovery来获取客户可用的信息。
 
 [Kafka](https://kafka.apache.org/quickstart)
 

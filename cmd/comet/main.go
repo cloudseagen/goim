@@ -102,6 +102,22 @@ func register(dis *naming.Discovery, srv *comet.Server) context.CancelFunc {
 			md.MetaAddrs:   strings.Join(env.Addrs, ","),
 		},
 	}
+
+	for _,v := range conf.Conf.TCP.Bind {
+		ins.Addrs = append(ins.Addrs, "tcp://" + addr + v)
+	}
+
+	if conf.Conf.Websocket.TLSOpen {
+		for _,v := range conf.Conf.Websocket.Bind {
+			ins.Addrs = append(ins.Addrs, "wss://" + addr + v)
+		}
+	} else {
+		for _,v := range conf.Conf.Websocket.Bind {
+			ins.Addrs = append(ins.Addrs, "ws://" + addr + v)
+		}
+	}
+	
+
 	cancel, err := dis.Register(ins)
 	if err != nil {
 		panic(err)

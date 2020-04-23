@@ -75,11 +75,13 @@ func register(dis *naming.Discovery, srv *logic.Logic) context.CancelFunc {
 		AppID:    appid,
 		Addrs: []string{
 			"grpc://" + addr + ":" + port,
+			"http://" + addr + conf.Conf.HTTPServer.Addr,
 		},
 		Metadata: map[string]string{
 			model.MetaWeight: strconv.FormatInt(env.Weight, 10),
 		},
 	}
+
 	cancel, err := dis.Register(ins)
 	if err != nil {
 		panic(err)
