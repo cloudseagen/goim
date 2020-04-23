@@ -25,6 +25,64 @@ goim v2.0
  * 可拓扑的架构（job、logic模块可动态无限扩展）
  * 基于Kafka做异步消息推送
 
+ ## 架构
+主要采用订阅与消费的模式进行开发，通过redis和kafka来订阅消息。其中每一个通信都是建立在room的基础上的。
+使用discovery来管理各个节点的状态，也使用discovery来实现负载均衡。当客户端需要建立新的连接时，可用通过
+访问discovery来获取当前负载最轻的comet，从而与comet进行连接。所以每一个需要监控的节点都需要像discovery
+进行注册（在对应的main.go中的register方法中进行注册），通过对应的api就可以获取节点信息，如：
+```
+/discovery/fetch?zone=sh001&env=dev&status=1&appid=goim.comet
+
+{
+    "code": 0,
+    "message": "0",
+    "ttl": 1,
+    "data": {
+        "instances": {
+            "sh001": [
+                {
+                    "region": "sh",
+                    "zone": "sh001",
+                    "env": "dev",
+                    "appid": "goim.comet",
+                    "hostname": "unitylabss-MacBook-Air.local",
+                    "addrs": [
+                        "grpc://192.168.12.108:3109,tcp://192.168.12.108:3101,ws://192.168.12.108:3102"
+                    ],
+                    "version": "",
+                    "metadata": {
+                        "addrs": "127.0.0.1",
+                        "conn_count": "0",
+                        "ip_count": "0",
+                        "offline": "false",
+                        "weight": "10"
+                    },
+                    "status": 1,
+                    "reg_timestamp": 1587614849272206000,
+                    "up_timestamp": 1587615139405518000,
+                    "renew_timestamp": 1587615119282758000,
+                    "dirty_timestamp": 1587615139405518000,
+                    "latest_timestamp": 1587615139405518000
+                }
+            ]
+        },
+        "latest_timestamp": 1587614849272206000
+    }
+}
+```
+所以使用这个框架集合discovery可以轻松的二次开发，对应的discovery中提供大量有效的api接口用于监控使用。
+
+### comet
+主要用于与Client直接交互，接受来自Client的消息，以及将消息推送到Client。
+
+
+### logic
+主要用于消息的产生，将消息发送到kafka中。同时这里还进行权限验证。
+
+
+### job
+主要是通过消费kafka中的消息，然后将消息根据订阅者机制发送到comet中，由comet将消息同步到Client中。
+
 ## 安装
 ### 一、安装依赖
 ```sh
