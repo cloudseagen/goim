@@ -137,3 +137,15 @@ job 根据kafka的partition来扩展多job工作方式，具体可以参考下ka
 
 ##更多
 TODO
+
+## 注
+WebSocket收发消息在logic是没有实现的，所有要使用websocket或者tcp收发消息，需要在logic中实现。
+也就是没有处理从comet中过来的grpc消息，为了实现各种消息的发送，需要实现下面的方法。
+```
+// 实现websocket和TCP收发消息
+func (l *Logic) Receive(c context.Context, mid int64, proto *grpc.Proto) (err error) {
+	log.Infof("receive mid:%d message:%+v", mid, proto)
+  // 处理消息，也就是转发消息
+	return
+}
+```
