@@ -1,4 +1,5 @@
 # Go parameters
+export GOPROXY=https://goproxy.io
 GOCMD=GO111MODULE=on go
 GOBUILD=$(GOCMD) build
 GOTEST=$(GOCMD) test
