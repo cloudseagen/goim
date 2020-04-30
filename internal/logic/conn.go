@@ -80,6 +80,17 @@ func (l *Logic) RenewOnline(c context.Context, server string, roomCount map[stri
 }
 
 // Receive receive a message.
+// Receive grpc message to dispatch
+// @param c  excute context
+// @param mid user mids for request
+// @param proto recv grpc message
+// message Proto {
+//     int32 ver = 1 [(gogoproto.jsontag) = "ver"];
+//     int32 op = 2 [(gogoproto.jsontag) = "op"];
+//     int32 seq = 3 [(gogoproto.jsontag) = "seq"];
+//     bytes body = 4 [(gogoproto.jsontag) = "body"];
+// }
+// Print: receive mid 123 message ver:1 op:4 seq:1 body:"123123"
 func (l *Logic) Receive(c context.Context, mid int64, proto *grpc.Proto) (err error) {
 	log.Infoln("receive mid", mid, "message", proto)
 	fmt.Println("receive mid", mid, "message", proto)
