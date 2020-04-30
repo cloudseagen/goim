@@ -12,6 +12,13 @@
           // alert(JSON.stringify(data));
         }
       });
+
+      function sendMessage() {
+        var sned = document.getElementById("message")
+        var value = sned.value;
+
+        client.sendMessage(value)
+      }
     </script>
     <style type="text/css">
         span{ display:block;}
@@ -21,6 +28,10 @@
     <h1>websocket</h1>
     <h2>status:</h2>
     <span id="status"></span>
+    <div>
+      <input type="text" id="message" />
+      <input type="button" name="发送" onclick="sendMessage()" value="发送"/>
+    </div>
     <h2>push</h2>
     <div>
         <p>curl -d 'mid message' http://api.goim.io:3111/goim/push/mids?operation=1000&mids=123</p>

@@ -14,13 +14,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bilibili/discovery/naming"
-	resolver "github.com/bilibili/discovery/naming/grpc"
 	"github.com/Terry-Mao/goim/internal/comet"
 	"github.com/Terry-Mao/goim/internal/comet/conf"
 	"github.com/Terry-Mao/goim/internal/comet/grpc"
 	md "github.com/Terry-Mao/goim/internal/logic/model"
 	"github.com/Terry-Mao/goim/pkg/ip"
+	"github.com/bilibili/discovery/naming"
+	resolver "github.com/bilibili/discovery/naming/grpc"
 	log "github.com/golang/glog"
 )
 
@@ -103,20 +103,19 @@ func register(dis *naming.Discovery, srv *comet.Server) context.CancelFunc {
 		},
 	}
 
-	for _,v := range conf.Conf.TCP.Bind {
-		ins.Addrs = append(ins.Addrs, "tcp://" + addr + v)
+	for _, v := range conf.Conf.TCP.Bind {
+		ins.Addrs = append(ins.Addrs, string("tcp://"+addr+v))
 	}
 
 	if conf.Conf.Websocket.TLSOpen {
-		for _,v := range conf.Conf.Websocket.Bind {
-			ins.Addrs = append(ins.Addrs, "wss://" + addr + v)
+		for _, v := range conf.Conf.Websocket.Bind {
+			ins.Addrs = append(ins.Addrs, string("wss://"+addr+v))
 		}
 	} else {
-		for _,v := range conf.Conf.Websocket.Bind {
-			ins.Addrs = append(ins.Addrs, "ws://" + addr + v)
+		for _, v := range conf.Conf.Websocket.Bind {
+			ins.Addrs = append(ins.Addrs, string("ws://"+addr+v))
 		}
 	}
-	
 
 	cancel, err := dis.Register(ins)
 	if err != nil {

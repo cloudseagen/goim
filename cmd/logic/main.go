@@ -9,14 +9,14 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/bilibili/discovery/naming"
-	resolver "github.com/bilibili/discovery/naming/grpc"
 	"github.com/Terry-Mao/goim/internal/logic"
 	"github.com/Terry-Mao/goim/internal/logic/conf"
 	"github.com/Terry-Mao/goim/internal/logic/grpc"
 	"github.com/Terry-Mao/goim/internal/logic/http"
 	"github.com/Terry-Mao/goim/internal/logic/model"
 	"github.com/Terry-Mao/goim/pkg/ip"
+	"github.com/bilibili/discovery/naming"
+	resolver "github.com/bilibili/discovery/naming/grpc"
 	log "github.com/golang/glog"
 )
 
@@ -74,8 +74,7 @@ func register(dis *naming.Discovery, srv *logic.Logic) context.CancelFunc {
 		Hostname: env.Host,
 		AppID:    appid,
 		Addrs: []string{
-			"grpc://" + addr + ":" + port,
-			"http://" + addr + conf.Conf.HTTPServer.Addr,
+			string("grpc://" + addr + ":" + port),
 		},
 		Metadata: map[string]string{
 			model.MetaWeight: strconv.FormatInt(env.Weight, 10),
