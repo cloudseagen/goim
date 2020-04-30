@@ -1,4 +1,4 @@
-(function(win) {
+(function (win) {
     const rawHeaderLen = 16;
     const packetOffset = 0;
     const headerOffset = 4;
@@ -6,21 +6,21 @@
     const opOffset = 8;
     const seqOffset = 12;
 
-    var Client = function(options) {
+    var Client = function (options) {
         var MAX_CONNECT_TIMES = 10;
         var DELAY = 15000;
         this.options = options || {};
         this.createConnect(MAX_CONNECT_TIMES, DELAY);
     }
 
-    var appendMsg = function(text) {
+    var appendMsg = function (text) {
         var span = document.createElement("SPAN");
         var text = document.createTextNode(text);
         span.appendChild(text);
         document.getElementById("box").appendChild(span);
     }
 
-    Client.prototype.createConnect = function(max, delay) {
+    Client.prototype.createConnect = function (max, delay) {
         var self = this;
         if (max === 0) {
             return;
@@ -31,14 +31,14 @@
         var textEncoder = new TextEncoder();
         var heartbeatInterval;
         function connect() {
-            var ws = new WebSocket('ws://sh.tony.wiki:3102/sub');
-            //var ws = new WebSocket('ws://127.0.0.1:3102/sub');
+            // var ws = new WebSocket('ws://sh.tony.wiki:3102/sub');
+            var ws = new WebSocket('ws://127.0.0.1:3102/sub');
             ws.binaryType = 'arraybuffer';
-            ws.onopen = function() {
+            ws.onopen = function () {
                 auth();
             }
 
-            ws.onmessage = function(evt) {
+            ws.onmessage = function (evt) {
                 var data = evt.data;
                 var dataView = new DataView(data, 0);
                 var packetLen = dataView.getInt32(packetOffset);
@@ -49,8 +49,9 @@
 
                 console.log("receiveHeader: packetLen=" + packetLen, "headerLen=" + headerLen, "ver=" + ver, "op=" + op, "seq=" + seq);
 
-                switch(op) {
+                switch (op) {
                     case 8:
+                        self.ws = ws
                         // auth reply ok
                         document.getElementById("status").innerHTML = "<color style='color:green'>ok<color>";
                         appendMsg("receive: auth reply");
@@ -65,14 +66,14 @@
                         break;
                     case 9:
                         // batch message
-                        for (var offset=rawHeaderLen; offset<data.byteLength; offset+=packetLen) {
+                        for (var offset = rawHeaderLen; offset < data.byteLength; offset += packetLen) {
                             // parse
                             var packetLen = dataView.getInt32(offset);
-                            var headerLen = dataView.getInt16(offset+headerOffset);
-                            var ver = dataView.getInt16(offset+verOffset);
-                            var op = dataView.getInt32(offset+opOffset);
-                            var seq = dataView.getInt32(offset+seqOffset);
-                            var msgBody = textDecoder.decode(data.slice(offset+headerLen, offset+packetLen));
+                            var headerLen = dataView.getInt16(offset + headerOffset);
+                            var ver = dataView.getInt16(offset + verOffset);
+                            var op = dataView.getInt32(offset + opOffset);
+                            var seq = dataView.getInt32(offset + seqOffset);
+                            var msgBody = textDecoder.decode(data.slice(offset + headerLen, offset + packetLen));
                             // callback
                             messageReceived(ver, msgBody);
                             appendMsg("receive: ver=" + ver + " op=" + op + " seq=" + seq + " message=" + msgBody);
@@ -86,11 +87,11 @@
                 }
             }
 
-            ws.onclose = function() {
+            ws.onclose = function () {
                 if (heartbeatInterval) clearInterval(heartbeatInterval);
                 setTimeout(reConnect, delay);
 
-                document.getElementById("status").innerHTML =  "<color style='color:red'>failed<color>";
+                document.getElementById("status").innerHTML = "<color style='color:red'>failed<color>";
             }
 
             function heartbeat() {
@@ -123,7 +124,7 @@
 
             function messageReceived(ver, body) {
                 var notify = self.options.notify;
-                if(notify) notify(body);
+                if (notify) notify(body);
                 console.log("messageReceived:", "ver=" + ver, "body=" + body);
             }
 
@@ -139,7 +140,7 @@
             function char2ab(str) {
                 var buf = new ArrayBuffer(str.length);
                 var bufView = new Uint8Array(buf);
-                for (var i=0; i<str.length; i++) {
+                for (var i = 0; i < str.length; i++) {
                     bufView[i] = str[i];
                 }
                 return buf;
@@ -152,5 +153,29 @@
         }
     }
 
+    function mergeArrayBuffer(ab1, ab2) {
+        var u81 = new Uint8Array(ab1),
+            u82 = new Uint8Array(ab2),
+            res = new Uint8Array(ab1.byteLength + ab2.byteLength);
+        res.set(u81, 0);
+        res.set(u82, ab1.byteLength);
+        return res.buffer;
+    }
+
+    Client.prototype.sendMessage = function (message) {
+        console.log("================== ", message)
+        var textEncoder = new TextEncoder();
+        var headerBuf = new ArrayBuffer(rawHeaderLen);
+        var headerView = new DataView(headerBuf, 0);
+        var bodyBuf = textEncoder.encode(message);
+        headerView.setInt32(packetOffset, rawHeaderLen + bodyBuf.byteLength);
+        headerView.setInt16(headerOffset, rawHeaderLen);
+        headerView.setInt16(verOffset, 1);
+        headerView.setInt32(opOffset,4);
+        headerView.setInt32(seqOffset, 1);
+        this.ws.send(mergeArrayBuffer(headerBuf, bodyBuf));
+
+        appendMsg("send message: " + message);
+    }
     win['MyClient'] = Client;
 })(window);
