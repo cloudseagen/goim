@@ -3,18 +3,25 @@
 
 package grpc
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
-import grpc1 "github.com/Terry-Mao/goim/api/comet/grpc"
-import _ "github.com/gogo/protobuf/gogoproto"
+import (
+	fmt "fmt"
 
-import context "golang.org/x/net/context"
-import grpc "google.golang.org/grpc"
+	proto "github.com/golang/protobuf/proto"
 
-import encoding_binary "encoding/binary"
+	math "math"
 
-import io "io"
+	grpc1 "github.com/cloudseagen/goim/api/comet/grpc"
+
+	_ "github.com/gogo/protobuf/gogoproto"
+
+	context "golang.org/x/net/context"
+
+	grpc "google.golang.org/grpc"
+
+	encoding_binary "encoding/binary"
+
+	io "io"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal

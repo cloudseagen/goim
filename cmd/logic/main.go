@@ -9,14 +9,14 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/Terry-Mao/goim/internal/logic"
-	"github.com/Terry-Mao/goim/internal/logic/conf"
-	"github.com/Terry-Mao/goim/internal/logic/grpc"
-	"github.com/Terry-Mao/goim/internal/logic/http"
-	"github.com/Terry-Mao/goim/internal/logic/model"
-	"github.com/Terry-Mao/goim/pkg/ip"
 	"github.com/bilibili/discovery/naming"
 	resolver "github.com/bilibili/discovery/naming/grpc"
+	"github.com/cloudseagen/goim/internal/logic"
+	"github.com/cloudseagen/goim/internal/logic/conf"
+	"github.com/cloudseagen/goim/internal/logic/grpc"
+	"github.com/cloudseagen/goim/internal/logic/http"
+	"github.com/cloudseagen/goim/internal/logic/model"
+	"github.com/cloudseagen/goim/pkg/ip"
 	log "github.com/golang/glog"
 )
 
@@ -30,6 +30,7 @@ func main() {
 	if err := conf.Init(); err != nil {
 		panic(err)
 	}
+	log.Error("===========================================")
 	log.Infof("goim-logic [version: %s env: %+v] start", ver, conf.Conf.Env)
 	// grpc register naming
 	dis := naming.New(conf.Conf.Discovery)

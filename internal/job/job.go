@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	pb "github.com/Terry-Mao/goim/api/logic/grpc"
-	"github.com/Terry-Mao/goim/internal/job/conf"
+	pb "github.com/cloudseagen/goim/api/logic/grpc"
+	"github.com/cloudseagen/goim/internal/job/conf"
 	"github.com/bilibili/discovery/naming"
 	"github.com/gogo/protobuf/proto"
 

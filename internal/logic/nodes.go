@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/bilibili/discovery/naming"
-	pb "github.com/Terry-Mao/goim/api/logic/grpc"
-	"github.com/Terry-Mao/goim/internal/logic/model"
+	pb "github.com/cloudseagen/goim/api/logic/grpc"
+	"github.com/cloudseagen/goim/internal/logic/model"
 	log "github.com/golang/glog"
 )
 

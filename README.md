@@ -1,8 +1,8 @@
 goim v2.0
 ==============
-[![Build Status](https://travis-ci.org/Terry-Mao/goim.svg?branch=master)](https://travis-ci.org/Terry-Mao/goim) 
-[![Go Report Card](https://goreportcard.com/badge/github.com/Terry-Mao/goim)](https://goreportcard.com/report/github.com/Terry-Mao/goim)
-[![codecov](https://codecov.io/gh/Terry-Mao/goim/branch/master/graph/badge.svg)](https://codecov.io/gh/Terry-Mao/goim)
+[![Build Status](https://travis-ci.org/cloudseagen/goim.svg?branch=master)](https://travis-ci.org/cloudseagen/goim) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/cloudseagen/goim)](https://goreportcard.com/report/github.com/cloudseagen/goim)
+[![codecov](https://codecov.io/gh/cloudseagen/goim/branch/master/graph/badge.svg)](https://codecov.io/gh/cloudseagen/goim)
 
 goim is an im server writen in golang.
 
@@ -69,7 +69,7 @@ You can view the comments in target/comet.toml,logic.toml,job.toml to understand
 [中文](./README_cn.md)
 
 ## Examples
-Websocket: [Websocket Client Demo](https://github.com/Terry-Mao/goim/tree/master/examples/javascript)
+Websocket: [Websocket Client Demo](https://github.com/cloudseagen/goim/tree/master/examples/javascript)
 
 Android: [Android](https://github.com/roamdy/goim-sdk)
 

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	comet "github.com/Terry-Mao/goim/api/comet/grpc"
-	pb "github.com/Terry-Mao/goim/api/logic/grpc"
-	"github.com/Terry-Mao/goim/pkg/bytes"
+	comet "github.com/cloudseagen/goim/api/comet/grpc"
+	pb "github.com/cloudseagen/goim/api/logic/grpc"
+	"github.com/cloudseagen/goim/pkg/bytes"
 	log "github.com/golang/glog"
 )
 
