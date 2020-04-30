@@ -4,9 +4,9 @@ import (
 	"errors"
 	"time"
 
-	comet "github.com/Terry-Mao/goim/api/comet/grpc"
-	"github.com/Terry-Mao/goim/internal/job/conf"
-	"github.com/Terry-Mao/goim/pkg/bytes"
+	comet "github.com/cloudseagen/goim/api/comet/grpc"
+	"github.com/cloudseagen/goim/internal/job/conf"
+	"github.com/cloudseagen/goim/pkg/bytes"
 	log "github.com/golang/glog"
 )
 

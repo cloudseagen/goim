@@ -1,9 +1,9 @@
 package comet
 
 import (
-	"github.com/Terry-Mao/goim/api/comet/grpc"
-	"github.com/Terry-Mao/goim/internal/comet/conf"
-	"github.com/Terry-Mao/goim/internal/comet/errors"
+	"github.com/cloudseagen/goim/api/comet/grpc"
+	"github.com/cloudseagen/goim/internal/comet/conf"
+	"github.com/cloudseagen/goim/internal/comet/errors"
 	log "github.com/golang/glog"
 )
 
