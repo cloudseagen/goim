@@ -37,7 +37,7 @@
     handshakeTimeout = "8s"
 
 [whitelist]
-    Whitelist = [123]
+    Whitelist = ["123"]
     WhiteLog  = "/tmp/white_list.log"
 
 [bucket]

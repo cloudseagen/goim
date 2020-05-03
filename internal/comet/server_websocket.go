@@ -207,6 +207,7 @@ func (s *Server) ServeWebsocket(conn net.Conn, rp, wp *bytes.Pool, tr *xtime.Tim
 	// must not setadv, only used in auth
 	step = 3
 	if p, err = ch.CliProto.Set(); err == nil {
+		log.Errorf("CliProto(%v)", ch.CliProto)
 		if ch.Mid, ch.Key, rid, accepts, hb, err = s.authWebsocket(ctx, ws, p, req.Header.Get("Cookie")); err == nil {
 			ch.Watch(accepts...)
 			b = s.Bucket(ch.Key)
@@ -405,7 +406,7 @@ failed:
 }
 
 // auth for goim handshake with client, use rsa & aes.
-func (s *Server) authWebsocket(ctx context.Context, ws *websocket.Conn, p *grpc.Proto, cookie string) (mid int64, key, rid string, accepts []int32, hb time.Duration, err error) {
+func (s *Server) authWebsocket(ctx context.Context, ws *websocket.Conn, p *grpc.Proto, cookie string) (mid string, key, rid string, accepts []int32, hb time.Duration, err error) {
 	for {
 		if err = p.ReadWebsocket(ws); err != nil {
 			return
@@ -416,6 +417,7 @@ func (s *Server) authWebsocket(ctx context.Context, ws *websocket.Conn, p *grpc.
 			log.Errorf("ws request operation(%d) not auth", p.Op)
 		}
 	}
+	log.Errorf("==============(%v)", p)
 	if mid, key, rid, accepts, hb, err = s.Connect(ctx, p, cookie); err != nil {
 		return
 	}

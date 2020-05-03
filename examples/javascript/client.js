@@ -108,7 +108,7 @@
             }
 
             function auth() {
-                var token = '{"mid":123, "room_id":"live://1000", "platform":"web", "accepts":[1000,1001,1002]}'
+                var token = '{"mid":"123", "room_id":"live://1000", "platform":"web", "accepts":[1000,1001,1002]}'
                 var headerBuf = new ArrayBuffer(rawHeaderLen);
                 var headerView = new DataView(headerBuf, 0);
                 var bodyBuf = textEncoder.encode(token);

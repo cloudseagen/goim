@@ -12,19 +12,19 @@ var whitelist *Whitelist
 // Whitelist .
 type Whitelist struct {
 	log  *log.Logger
-	list map[int64]struct{} // whitelist for debug
+	list map[string]struct{} // whitelist for debug
 }
 
 // InitWhitelist a whitelist struct.
 func InitWhitelist(c *conf.Whitelist) (err error) {
 	var (
-		mid int64
+		mid string
 		f   *os.File
 	)
 	if f, err = os.OpenFile(c.WhiteLog, os.O_RDWR|os.O_APPEND|os.O_CREATE, 0644); err == nil {
 		whitelist = new(Whitelist)
 		whitelist.log = log.New(f, "", log.LstdFlags)
-		whitelist.list = make(map[int64]struct{})
+		whitelist.list = make(map[string]struct{})
 		for _, mid = range c.Whitelist {
 			whitelist.list[mid] = struct{}{}
 		}
@@ -33,8 +33,8 @@ func InitWhitelist(c *conf.Whitelist) (err error) {
 }
 
 // Contains whitelist contains a mid or not.
-func (w *Whitelist) Contains(mid int64) (ok bool) {
-	if mid > 0 {
+func (w *Whitelist) Contains(mid string) (ok bool) {
+	if len(mid) > 0 {
 		_, ok = w.list[mid]
 	}
 	return

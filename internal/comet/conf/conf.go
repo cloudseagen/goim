@@ -191,6 +191,6 @@ type Bucket struct {
 
 // Whitelist is white list config.
 type Whitelist struct {
-	Whitelist []int64
+	Whitelist []string
 	WhiteLog  string
 }

@@ -30,7 +30,7 @@ func (l *Logic) PushKeys(c context.Context, op int32, keys []string, msg []byte)
 }
 
 // PushMids push a message by mid.
-func (l *Logic) PushMids(c context.Context, op int32, mids []int64, msg []byte) (err error) {
+func (l *Logic) PushMids(c context.Context, op int32, mids []string, msg []byte) (err error) {
 	keyServers, _, err := l.dao.KeysByMids(c, mids)
 	if err != nil {
 		return

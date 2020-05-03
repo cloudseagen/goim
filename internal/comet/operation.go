@@ -14,7 +14,7 @@ import (
 )
 
 // Connect connected a connection.
-func (s *Server) Connect(c context.Context, p *model.Proto, cookie string) (mid int64, key, rid string, accepts []int32, heartbeat time.Duration, err error) {
+func (s *Server) Connect(c context.Context, p *model.Proto, cookie string) (mid string, key, rid string, accepts []int32, heartbeat time.Duration, err error) {
 	reply, err := s.rpcClient.Connect(c, &logic.ConnectReq{
 		Server: s.serverID,
 		Cookie: cookie,
@@ -27,7 +27,7 @@ func (s *Server) Connect(c context.Context, p *model.Proto, cookie string) (mid 
 }
 
 // Disconnect disconnected a connection.
-func (s *Server) Disconnect(c context.Context, mid int64, key string) (err error) {
+func (s *Server) Disconnect(c context.Context, mid string, key string) (err error) {
 	_, err = s.rpcClient.Disconnect(context.Background(), &logic.DisconnectReq{
 		Server: s.serverID,
 		Mid:    mid,
@@ -37,7 +37,7 @@ func (s *Server) Disconnect(c context.Context, mid int64, key string) (err error
 }
 
 // Heartbeat heartbeat a connection session.
-func (s *Server) Heartbeat(ctx context.Context, mid int64, key string) (err error) {
+func (s *Server) Heartbeat(ctx context.Context, mid string, key string) (err error) {
 	_, err = s.rpcClient.Heartbeat(ctx, &logic.HeartbeatReq{
 		Server: s.serverID,
 		Mid:    mid,
@@ -59,7 +59,7 @@ func (s *Server) RenewOnline(ctx context.Context, serverID string, rommCount map
 }
 
 // Receive receive a message.
-func (s *Server) Receive(ctx context.Context, mid int64, p *model.Proto) (err error) {
+func (s *Server) Receive(ctx context.Context, mid string, p *model.Proto) (err error) {
 	_, err = s.rpcClient.Receive(ctx, &logic.ReceiveReq{Mid: mid, Proto: p})
 	return
 }

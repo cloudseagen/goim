@@ -13,9 +13,9 @@ import (
 )
 
 // Connect connected a conn.
-func (l *Logic) Connect(c context.Context, server, cookie string, token []byte) (mid int64, key, roomID string, accepts []int32, hb int64, err error) {
+func (l *Logic) Connect(c context.Context, server, cookie string, token []byte) (mid string, key, roomID string, accepts []int32, hb int64, err error) {
 	var params struct {
-		Mid      int64   `json:"mid"`
+		Mid      string   `json:"mid"`
 		Key      string  `json:"key"`
 		RoomID   string  `json:"room_id"`
 		Platform string  `json:"platform"`
@@ -40,7 +40,7 @@ func (l *Logic) Connect(c context.Context, server, cookie string, token []byte) 
 }
 
 // Disconnect disconnect a conn.
-func (l *Logic) Disconnect(c context.Context, mid int64, key, server string) (has bool, err error) {
+func (l *Logic) Disconnect(c context.Context, mid string, key, server string) (has bool, err error) {
 	if has, err = l.dao.DelMapping(c, mid, key, server); err != nil {
 		log.Errorf("l.dao.DelMapping(%d,%s) error(%v)", mid, key, server)
 		return
@@ -50,7 +50,7 @@ func (l *Logic) Disconnect(c context.Context, mid int64, key, server string) (ha
 }
 
 // Heartbeat heartbeat a conn.
-func (l *Logic) Heartbeat(c context.Context, mid int64, key, server string) (err error) {
+func (l *Logic) Heartbeat(c context.Context, mid string, key, server string) (err error) {
 	has, err := l.dao.ExpireMapping(c, mid, key)
 	if err != nil {
 		log.Errorf("l.dao.ExpireMapping(%d,%s,%s) error(%v)", mid, key, server, err)
@@ -91,9 +91,9 @@ func (l *Logic) RenewOnline(c context.Context, server string, roomCount map[stri
 //     bytes body = 4 [(gogoproto.jsontag) = "body"];
 // }
 // Print: receive mid 123 message ver:1 op:4 seq:1 body:"123123"
-func (l *Logic) Receive(c context.Context, mid int64, proto *grpc.Proto) (err error) {
+func (l *Logic) Receive(c context.Context, mid string, proto *grpc.Proto) (err error) {
 	log.Infoln("receive mid", mid, "message", proto)
-	fmt.Println("receive mid", mid, "message", proto, "Mid:", proto.Mid)
+	fmt.Println("receive mid", mid, "message", proto)
 
 	return
 }

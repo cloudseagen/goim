@@ -42,7 +42,7 @@ message ConnectReq {
 }
 
 message ConnectReply {
-    int64 mid = 1;
+    string mid = 1;
     string key = 2;
     string roomID = 3;
     repeated int32 accepts = 4;
@@ -50,7 +50,7 @@ message ConnectReply {
 }
 
 message DisconnectReq {
-    int64 mid = 1;
+    string mid = 1;
     string key = 2;
     string server = 3;
 }
@@ -60,7 +60,7 @@ message DisconnectReply {
 }
 
 message HeartbeatReq {
-    int64 mid = 1;
+    string mid = 1;
     string key = 2;
     string server = 3;
 }
@@ -80,7 +80,7 @@ message OnlineReply {
 }
 
 message ReceiveReq {
-    int64 mid = 1;
+    string mid = 1;
     comet.Proto proto = 2;
 }
 

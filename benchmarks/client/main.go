@@ -93,7 +93,7 @@ func result() {
 	}
 }
 
-func client(mid int64) {
+func client(mid string) {
 	for {
 		startClient(mid)
 		time.Sleep(time.Duration(rand.Intn(10)) * time.Second)

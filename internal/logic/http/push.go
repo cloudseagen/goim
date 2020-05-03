@@ -32,7 +32,7 @@ func (s *Server) pushKeys(c *gin.Context) {
 func (s *Server) pushMids(c *gin.Context) {
 	var arg struct {
 		Op   int32   `form:"operation"`
-		Mids []int64 `form:"mids"`
+		Mids []string `form:"mids"`
 	}
 	if err := c.BindQuery(&arg); err != nil {
 		errors(c, RequestErr, err.Error())
