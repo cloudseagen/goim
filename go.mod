@@ -10,15 +10,18 @@ require (
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/gin-gonic/gin v1.3.0
-	github.com/gogo/protobuf v1.1.1
+	github.com/gogo/protobuf v1.3.1
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/golang/protobuf v1.2.0
+	github.com/golang/protobuf v1.4.0-rc.4.0.20200313231945-b860323f09d0
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.0.0
+	github.com/grpc-ecosystem/grpc-gateway v1.14.4 // indirect
 	github.com/issue9/assert v1.0.0
+	github.com/mwitkow/go-proto-validators v0.3.0 // indirect
 	github.com/pierrec/lz4 v2.0.5+incompatible // indirect
 	github.com/pkg/errors v0.8.0
+	github.com/rakyll/statik v0.1.7 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a // indirect
 	github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d // indirect
 	github.com/smartystreets/goconvey v0.0.0-20180222194500-ef6db91d284a
@@ -26,10 +29,10 @@ require (
 	github.com/thinkboy/log4go v0.0.0-20160303045050-f91a411e4a18
 	github.com/ugorji/go/codec v0.0.0-20190204201341-e444a5086c43
 	github.com/zhenjl/cityhash v0.0.0-20131128155616-cdd6a94144ab
-	golang.org/x/net v0.0.0-20181011144130-49bb7cea24b1
-	google.golang.org/grpc v1.16.0
+	golang.org/x/net v0.0.0-20191002035440-2ec189313ef0
+	google.golang.org/grpc v1.24.0
+	google.golang.org/protobuf v1.21.0
 	gopkg.in/Shopify/sarama.v1 v1.19.0
-	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
 
 replace (

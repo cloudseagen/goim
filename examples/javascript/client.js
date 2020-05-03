@@ -168,12 +168,13 @@
         var headerBuf = new ArrayBuffer(rawHeaderLen);
         var headerView = new DataView(headerBuf, 0);
         var bodyBuf = textEncoder.encode(message);
-        headerView.setInt32(packetOffset, rawHeaderLen + bodyBuf.byteLength);
+        var midBuf = textEncoder.encode("cba123cda76cbda123")
+        headerView.setInt32(packetOffset, rawHeaderLen + bodyBuf.byteLength + midBuf.byteLength);
         headerView.setInt16(headerOffset, rawHeaderLen);
         headerView.setInt16(verOffset, 1);
         headerView.setInt32(opOffset,4);
         headerView.setInt32(seqOffset, 1);
-        this.ws.send(mergeArrayBuffer(headerBuf, bodyBuf));
+        this.ws.send(mergeArrayBuffer(mergeArrayBuffer(headerBuf, bodyBuf),midBuf));
 
         appendMsg("send message: " + message);
     }

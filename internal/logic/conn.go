@@ -93,7 +93,7 @@ func (l *Logic) RenewOnline(c context.Context, server string, roomCount map[stri
 // Print: receive mid 123 message ver:1 op:4 seq:1 body:"123123"
 func (l *Logic) Receive(c context.Context, mid int64, proto *grpc.Proto) (err error) {
 	log.Infoln("receive mid", mid, "message", proto)
-	fmt.Println("receive mid", mid, "message", proto)
+	fmt.Println("receive mid", mid, "message", proto, "Mid:", proto.Mid)
 
 	return
 }

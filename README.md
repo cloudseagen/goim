@@ -105,3 +105,13 @@ iOS: [iOS](https://github.com/roamdy/goim-oc-sdk)
 
 ## LICENSE
 goim is is distributed under the terms of the MIT License.
+
+
+## Proto生成
+golang的GRPC不能生成service,service需要手动编写，所以这里生成proto的方法是：
+先安装protoc;
+在安转kratos工具，
+之后执行下面的方法
+```
+protoc --proto_path=/home/hai/github/go/src --proto_path=/home/hai/github/go/pkg/mod/github.com/go-kratos/kratos@v0.5.0/third_party --proto_path=/home/hai/github/go/pkg/mod  -I=.  --go_out=. api.proto
+```
