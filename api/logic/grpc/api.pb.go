@@ -1499,19 +1499,20 @@ func (m *ConnectReply) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Mid != "" {
-		dAtA[i] = 0x8
+	if len(m.Mid) > 0 {
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Mid)))
+		i += copy(dAtA[i:], m.Mid)
 	}
 	if len(m.Key) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Key)))
 		i += copy(dAtA[i:], m.Key)
 	}
 	if len(m.RoomID) > 0 {
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.RoomID)))
 		i += copy(dAtA[i:], m.RoomID)
@@ -2068,8 +2069,9 @@ func (m *ConnectReq) Size() (n int) {
 func (m *ConnectReply) Size() (n int) {
 	var l int
 	_ = l
-	if m.Mid != "" {
-		n += 1 + sovApi(uint64(len(m.Mid)))
+	l = len(m.Mid)
+	if l > 0 {
+		n += 1 + l + sovApi(uint64(len(m.Mid)))
 	}
 	l = len(m.Key)
 	if l > 0 {
@@ -2911,7 +2913,6 @@ func (m *ConnectReply) Unmarshal(dAtA []byte) error {
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Mid", wireType)
 			}
-			m.Mid = ""
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
