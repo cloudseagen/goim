@@ -1561,19 +1561,20 @@ func (m *DisconnectReq) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Mid != "" {
-		dAtA[i] = 0x8
+	if len(m.Mid) > 0 {
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Mid)))
+		i += copy(dAtA[i:], m.Mid)
 	}
 	if len(m.Key) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Key)))
 		i += copy(dAtA[i:], m.Key)
 	}
 	if len(m.Server) > 0 {
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Server)))
 		i += copy(dAtA[i:], m.Server)
@@ -1630,19 +1631,20 @@ func (m *HeartbeatReq) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Mid != "" {
-		dAtA[i] = 0x8
+	if len(m.Mid) > 0 {
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Mid)))
+		i += copy(dAtA[i:], m.Mid)
 	}
 	if len(m.Key) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Key)))
 		i += copy(dAtA[i:], m.Key)
 	}
 	if len(m.Server) > 0 {
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Server)))
 		i += copy(dAtA[i:], m.Server)
@@ -1769,13 +1771,14 @@ func (m *ReceiveReq) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Mid != "" {
-		dAtA[i] = 0x8
+	if len(m.Mid) > 0 {
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Mid)))
+		i += copy(dAtA[i:], m.Mid)
 	}
 	if m.Proto != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(m.Proto.Size()))
 		n3, err := m.Proto.MarshalTo(dAtA[i:])
@@ -2100,8 +2103,9 @@ func (m *ConnectReply) Size() (n int) {
 func (m *DisconnectReq) Size() (n int) {
 	var l int
 	_ = l
-	if m.Mid != "" {
-		n += 1 + sovApi(uint64(len(m.Mid)))
+	l = len(m.Mid)
+	if l > 0 {
+		n += 1 + l + sovApi(uint64(len(m.Mid)))
 	}
 	l = len(m.Key)
 	if l > 0 {
@@ -2132,8 +2136,9 @@ func (m *DisconnectReply) Size() (n int) {
 func (m *HeartbeatReq) Size() (n int) {
 	var l int
 	_ = l
-	if m.Mid != "" {
-		n += 1 + sovApi(uint64(len(m.Mid)))
+	l = len(m.Mid)
+	if l > 0 {
+		n += 1 + l + sovApi(uint64(l))
 	}
 	l = len(m.Key)
 	if l > 0 {
@@ -2199,8 +2204,9 @@ func (m *OnlineReply) Size() (n int) {
 func (m *ReceiveReq) Size() (n int) {
 	var l int
 	_ = l
-	if m.Mid != "" {
-		n += 1 + sovApi(uint64(len(m.Mid)))
+	l = len(m.Mid)
+	if l > 0 {
+		n += 1 + l + sovApi(uint64(len(m.Mid)))
 	}
 	if m.Proto != nil {
 		l = m.Proto.Size()
@@ -2880,6 +2886,7 @@ func (m *ConnectReq) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func (m *ConnectReply) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -3132,7 +3139,6 @@ func (m *DisconnectReq) Unmarshal(dAtA []byte) error {
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Mid", wireType)
 			}
-			m.Mid = ""
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
@@ -3156,7 +3162,7 @@ func (m *DisconnectReq) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Key = string(dAtA[iNdEx:postIndex])
+			m.Mid = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -3185,7 +3191,7 @@ func (m *DisconnectReq) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Mid = string(dAtA[iNdEx:postIndex])
+			m.Key = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -3342,7 +3348,6 @@ func (m *HeartbeatReq) Unmarshal(dAtA []byte) error {
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Mid", wireType)
 			}
-			m.Mid = ""
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
@@ -3877,7 +3882,6 @@ func (m *ReceiveReq) Unmarshal(dAtA []byte) error {
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Mid", wireType)
 			}
-			m.Mid = ""
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
