@@ -1500,19 +1500,19 @@ func (m *ConnectReply) MarshalTo(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if len(m.Mid) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x8
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Mid)))
 		i += copy(dAtA[i:], m.Mid)
 	}
 	if len(m.Key) > 0 {
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Key)))
 		i += copy(dAtA[i:], m.Key)
 	}
 	if len(m.RoomID) > 0 {
-		dAtA[i] = 0x22
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.RoomID)))
 		i += copy(dAtA[i:], m.RoomID)
@@ -1772,13 +1772,13 @@ func (m *ReceiveReq) MarshalTo(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if len(m.Mid) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x8
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(len(m.Mid)))
 		i += copy(dAtA[i:], m.Mid)
 	}
 	if m.Proto != nil {
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintApi(dAtA, i, uint64(m.Proto.Size()))
 		n3, err := m.Proto.MarshalTo(dAtA[i:])
@@ -2074,7 +2074,7 @@ func (m *ConnectReply) Size() (n int) {
 	_ = l
 	l = len(m.Mid)
 	if l > 0 {
-		n += 1 + l + sovApi(uint64(len(m.Mid)))
+		n += 1 + l + sovApi(uint64(l))
 	}
 	l = len(m.Key)
 	if l > 0 {
@@ -2206,7 +2206,7 @@ func (m *ReceiveReq) Size() (n int) {
 	_ = l
 	l = len(m.Mid)
 	if l > 0 {
-		n += 1 + l + sovApi(uint64(len(m.Mid)))
+		n += 1 + l + sovApi(uint64(l))
 	}
 	if m.Proto != nil {
 		l = m.Proto.Size()

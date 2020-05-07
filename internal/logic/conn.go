@@ -35,7 +35,7 @@ func (l *Logic) Connect(c context.Context, server, cookie string, token []byte) 
 	if err = l.dao.AddMapping(c, mid, key, server); err != nil {
 		log.Errorf("l.dao.AddMapping(%d,%s,%s) error(%v)", mid, key, server, err)
 	}
-	log.Infof("conn connected key:%s server:%s mid:%d token:%s", key, server, mid, token)
+	log.Error("key: ", key, "roomId: ", roomID, "server: ", server, "mid: ", mid, "token: ", token, " hb: ", hb)
 	return
 }
 

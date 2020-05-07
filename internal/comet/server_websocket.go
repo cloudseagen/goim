@@ -216,6 +216,9 @@ func (s *Server) ServeWebsocket(conn net.Conn, rp, wp *bytes.Pool, tr *xtime.Tim
 				log.Infof("websocket connnected key:%s mid:%d proto:%+v", ch.Key, ch.Mid, p)
 			}
 		}
+
+		log.Errorf("%v----%v hb: %v",ch.Mid, ch.Key,hb)
+		log.Errorf("%v----%v",rid, accepts)
 	}
 	step = 4
 	if err != nil {
